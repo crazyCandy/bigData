@@ -1,0 +1,185 @@
+
+
+body, p, ul, ol, li, dl, dt, dd, th, td {
+
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    font-family: "PingFangSC-Regular";
+    color: #97F4FF;
+    list-style: none;
+
+}
+.clearfix:after {
+    content: "";
+    height: 0;
+    line-height: 0;
+    display: block;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+
+    background: url("images/bg_1.png") no-repeat center top;
+
+    background-size: 100% 100%;
+}
+.water{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 1;
+    height:300px;
+    background: rgba(6,53,140,1);
+}
+.bolang{
+    position: absolute;
+    z-index: 1;
+    bottom: 290px;
+    width: 100%;
+}
+.main{
+    position: absolute;
+    z-index: 7;
+    width: 90%;
+    height:100%;
+    background: url("images/dt.png");
+    background-size: 100% 100%;
+    padding:0 5%;
+}
+.zhuanghua{
+    display: block;
+    width: 246px;
+    background: url("images/jiantou.png") no-repeat left center;
+    background-size: 18px 10px;
+    padding-left: 30px;
+    font-size: 18px;
+    color: #ffffff;
+}
+.header{
+    font-size: 30px;
+    text-align: center;
+    line-height: 73px;
+    color: #ffffff;
+    height: 126px;
+}
+.data{
+    width: 100%;
+    height:140px;
+    position: relative;
+
+}
+.data .left_data{
+    float: left;
+    text-align: center;
+    line-height: 58px;
+}
+
+.data .left_data .title{
+    color: #97F4FF;
+    font-size: 12px;
+}
+.data .left_data .number{
+    line-height: 46px;
+    font-size: 34px;
+}
+.left_data{
+    width: 29.2%;
+    height: 100%;
+    background: url("https://p.jihes.com/index/bigdata/1.png") no-repeat;
+    background-size: cover;
+}
+.middle_data{
+    width: 37.1%;
+    height: 100%;
+    background: url("https://p.jihes.com/index/bigdata/2.png") no-repeat;
+    background-size: cover;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+.data .right_data{
+    margin-right: 0;
+    float: right;
+}
+.main_left{
+    float: left;
+}
+.main_middle{
+    width:39%;
+    height: 400px;
+    /*background: url("https://p.jihes.com/index/data/ji.png") no-repeat;*/
+    background-size: contain;
+    margin-left: 50px;
+    margin-top: 15px;
+    position: absolute;
+    left: 60%;
+    margin-left: -30%;
+    top:37%;
+
+}
+.main_right{
+    float: right;
+}
+
+.agent{
+    float: left;
+}
+.agent p{
+    font-size: 12px;
+    line-height: 46px;
+}
+.agent p:nth-child(1){
+
+    color:#B800FF ;
+}
+.agent p:nth-child(2){
+
+    color:#7000F0 ;
+}
+.agent p:nth-child(3){
+    color:#1A7EBD ;
+}
+.agent p:nth-child(4){
+
+    color:#75F7FF;
+}
+
+.line_first .line_di{
+    width: 66%;
+    height: 10px;
+    display: inline-block;
+
+    border-radius: 5px;
+    margin-right: 20px;
+    position: relative;
+}
+.line_first span{
+    display: inline-block;
+}
+
+.line_first .line_di .line_top{
+    height: 10px;
+    position: absolute;
+    border-radius: 5px;
+    left: 0;
+    top:0;
+}
+.line_first .number{
+    font-size: 12px;
+}
+
+.shuju{
+    margin-top: 130px;
+}
+.shuju .zhuanghua{
+    line-height: 56px;
+}

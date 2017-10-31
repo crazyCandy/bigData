@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<div class="bolang">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100">
+        <g fill="rgba(6,53,140,0.45)">
+            <path d="M 0 70 Q 75 39, 150 70 T 300 70 T 450 70 T 600 70 T 750 70 T 900 70 T 1050 70  T 1300 70 T 1550 70 V 100 H 0 V 0"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-300" dur="1.5s" repeatCount="indefinite"></animateTransform>
+        </g>
+        <g fill="rgba(6,53,140,0.4)">
+            <path d="M 0 70 Q 87.5 47, 175 70 T 350 70 T 525 70 T 700 70 T 875 70 T 1050 70 T 1250 70 T 1400 70 T 1575 70 V 100 H 0 V 0"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-350" dur="3s" repeatCount="indefinite"></animateTransform>
+        </g>
+        <g fill="rgba(6,53,140,0.75)" transform="translate(-903.868 0)">
+            <path d="M 0 70 Q 135 36, 270 70 T 540 70 T 810 70 T 1080 70  T 1350 70  T 1620 70 T 1890 70  T 2160 70 V 100 H 0 V 0" transform="translate(-38.232284367796474, 0)"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-540" dur="2s" repeatCount="indefinite"></animateTransform>
+        </g>
+    </svg>
+</div>
+<div class="water" >
+
+</div>
+<div class="main clearfix" >
+    <div class="header">
+        作战大屏
+        <br>
+        <span style="font-size: 20px">近一个月数据</span>
+    </div>
+    <div class="data">
+        <div class="left_data">
+            <div class="title">本月交易额</div>
+            <div class="number">388,869</div>
+        </div>
+        <div class="left_data middle_data">
+            <div class="title">用户人数</div>
+            <div class="number">86,388,869</div>
+        </div>
+        <div class="left_data right_data">
+            <div class="title">本月佣金</div>
+            <div class="number">388,869</div>
+        </div>
+    </div>
+
+    <div class="main_left">
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div class="zhuanghua" style="margin-top: 50px;">用户转化</div>
+        <div id="main" style="width:350px;height:250px;"></div>
+        <div class="zhuanghua" style="margin-top: 50px;">近9日用户留存</div>
+        <div id="main2" style="width:350px;height:250px;"></div>
+    </div>
+
+
+
+    <div class="main_left main_right">
+        <div class="zhuanghua"  style="margin-top: 50px;">用户身份转化</div>
+
+        <div class="clearfix">
+            <div id="main3" style="width:300px;height:200px;float: left"></div>
+            <div class="agent" >
+                <p>一级代理 2000人</p>
+                <p>一级代理 4000人</p>
+                <p>一级代理 4000人</p>
+                <p>一级代理 10000人</p>
+            </div>
+        </div>
+
+
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(184,0,255,.2);"> <span class="line_top" style="width: 10%;background: #B800FF"></span></span>
+            <span class="number" >10%</span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(112,0,240,.2);"> <span class="line_top" style="width: 20%;background: #7000F0"></span></span>
+            <span class="number" >20%</span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(26,126,189,.2);"> <span class="line_top" style="width: 20%;background: #1A7EBD"></span></span>
+            <span class="number" >20%</span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(117,247,255,.2);"> <span class="line_top" style="width: 50%;background: #75F7FF"></span></span>
+            <span class="number" >50%</span>
+        </div>
+
+        <div class="shuju">
+            <div class="zhuanghua">日活量 ：10000人</div>
+            <div class="zhuanghua">周活量 ：10000人</div>
+            <div class="zhuanghua">平均在线时长：5小时30分/人</div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+</body>
+<script src="echarts/dist/echarts.js"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart3 = echarts.init(document.getElementById('main3'));
+
+    // 指定图表的配置项和数据
+    var option = {
+
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            textStyle:{
+                fontSize:12,
+                color:'#fff'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 2],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#5F8BA4'
+                },
+                lineStyle:{
+                    color:'#5F8BA4',
+                    width:1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: ['注册用户','登录用户'],
+            axisLabel: {
+                show: true,
+                splitLine:{
+                    color:'#5F8BA4'
+                },
+                textStyle: {
+                    color: '#5F8BA4'
+                },
+                lineStyle:{
+                    color:'#5F8BA4',
+                    width:1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        series: [
+            {
+                name: '2017年',
+                type: 'bar',
+                barWidth : 10,//柱图宽度
+                itemStyle: {
+                    normal: {
+                        color: function(params) {
+                            //首先定义一个数组
+                            var colorList = [
+                                '#FC385D', '#9AF3FD'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        label: {
+                            show: true
+                        } ,
+                        barWidth : 30,//柱图宽度
+                        lineStyle: {
+                            color: '#5F8BA4',
+                            width: '1'
+                        }
+                    }
+                },
+                data: [5230, 5206],
+            },
+
+        ]
+    };
+
+    var option2 = {
+        legend: {
+            textStyle:{
+                fontSize:15,
+                color:'#fff'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis:  {
+            type: 'category',
+            boundaryGap: false,
+            data: ['0', '3', '6', '9', '12', '15', '18', '21','24' ],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#5F8BA4'
+                },
+                lineStyle:{
+                    color:'#5F8BA4',
+                    width:1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: {onZero: false},
+
+            boundaryGap: false,
+            axisLabel: {
+                show: true,
+                splitLine:{
+                    color:'#5F8BA4'
+                },
+                textStyle: {
+                    color: '#5F8BA4'
+                },
+                lineStyle:{
+
+                    color:'#5F8BA4',
+                    width:1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        series: [
+            {
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    color:'#97F4FF',
+                    normal: {
+                        width: 0.5,
+                        color:"#97F4FF"
+
+                    }
+                },
+                data:[3000,4000,5000,3511,1000,4500,6500,2000,5500]
+            },
+            {
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    color:'#A82BFF',
+                    normal: {
+                        width: 0.5,
+                        color:"#A82BFF"
+
+                    }
+                },
+                data:[4500,6500,7500,5500,3000,4000,5000,3511,8566]
+            }
+        ]
+    };
+
+    var option3 = {
+        tooltip: {
+            trigger: 'item',
+
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+
+        },
+        series: [
+            {
+                color:["#B800FF",'#7000F0','#1A7EBD ','#75F7FF'],
+                type:'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '15',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data:[
+                    {value:2000, name:'一级代理'},
+                    {value:4000, name:'二级A型'},
+                    {value:4000, name:'二级B型'},
+                    {value:10000, name:'普通用户'},
+
+                ]
+            }
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart2.setOption(option2);
+    myChart3.setOption(option3);
+</script>
+</html>

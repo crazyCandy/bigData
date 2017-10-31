@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html { overflow-x:hidden; }
+    </style>
+</head>
+<body >
+<iframe src="http://www.jihes.com/mb100000?type=total" frameborder="0"  id="iframe"></iframe>
+<iframe src="http://www.jihes.com/mb100000" frameborder="0"  id="iframe1" ></iframe>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script>
+    $(function () {
+        $('#iframe').css({"width":document.documentElement.clientWidth,"height":document.documentElement.clientHeight})
+        $('#iframe1').css({"width":document.documentElement.clientWidth,"height":document.documentElement.clientHeight})
+        var type="total"
+        var timer=setInterval(function () {
+            if(type=="total"){
+                $('#iframe1').css('display','block');
+                $('#iframe').css('display','none');
+                type="today"
+            }else {
+                $('#iframe').css('display','block');
+                $('#iframe1').css('display','none');
+                type="total"
+            }
+        },10000)
+
+    })
+
+
+</script>
+</html>

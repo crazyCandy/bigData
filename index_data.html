@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>大屏</title>
+    <link rel="stylesheet" type="text/css" href="index_data.css">
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 1 + 'px';
+
+    </script>
+</head>
+
+<body>
+<div class="bolang">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100">
+        <g fill="rgba(6,53,140,0.45)">
+            <path d="M 0 70 Q 75 39, 150 70 T 300 70 T 450 70 T 600 70 T 750 70 T 900 70 T 1050 70  T 1300 70 T 1550 70 T 1700 70 V 100 H 0 V 0"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-300"
+                              dur="1.5s" repeatCount="indefinite"></animateTransform>
+        </g>
+        <g fill="rgba(6,53,140,0.4)">
+            <path d="M 0 70 Q 87.5 47, 175 70 T 350 70 T 525 70 T 700 70 T 875 70 T 1050 70 T 1250 70 T 1400 70 T 1575 70 V 100 H 0 V 0"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-350" dur="3s"
+                              repeatCount="indefinite"></animateTransform>
+        </g>
+        <g fill="rgba(6,53,140,0.75)" transform="translate(-903.868 0)">
+            <path d="M 0 70 Q 135 36, 270 70 T 540 70 T 810 70 T 1080 70  T 1350 70  T 1620 70 T 1890 70  T 2160 70 V 100 H 0 V 0"
+                  transform="translate(-38.232284367796474, 0)"></path>
+            <animateTransform attributeName="transform" attributeType="XML" type="translate" from="0" to="-540" dur="2s"
+                              repeatCount="indefinite"></animateTransform>
+        </g>
+    </svg>
+</div>
+<div class="water">
+    <p id="now">现日活人数：<span class="now_act"></span>人</p>
+</div>
+<div class="main clearfix">
+    <div class="header">
+        作战大屏
+        <br>
+        <span id="title">近一个月数据</span>
+    </div>
+    <div class="data" id="header">
+        <!--挖坑-->
+    </div>
+    <div class="main_left">
+        <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+        <div class="zhuanghua zhuanghau_top">用户转化</div>
+        <div id="main"></div>
+        <div class="zhuanghua zhuanghau_top">近9日用户留存</div>
+        <div id="main2" ></div>
+    </div>
+    <div  class="main_left main_middle zhuanghau_top">
+        <p  id="target">双十一目标日活：<span class="target_act"></span>人</p>
+    </div>
+    <div class="main_left main_right">
+        <div class="zhuanghua" style="margin-top: 50px;">用户身份转化</div>
+        <div class="clearfix">
+            <div id="main3" style="float: left"></div>
+            <div class="agent">
+                <p>一级代理 <span class="one_level"></span>人</p>
+                <p>二级A型 <span class="one_level"></span>人</p>
+                <p>二级B型 <span class="one_level"></span>人</p>
+                <p>普通用户 <span class="one_level"></span>人</p>
+            </div>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(184,0,255,.2);"> <span class="line_top" style="background: #B800FF"></span></span>
+            <span class="number"></span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(112,0,240,.2);"> <span class="line_top" style="background: #7000F0"></span></span>
+            <span class="number"></span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(26,126,189,.2);"> <span class="line_top" style="background: #1A7EBD"></span></span>
+            <span class="number"></span>
+        </div>
+        <div class="line_first">
+            <span class="line_di" style=" background: rgba(117,247,255,.2);"> <span class="line_top" style="background: #75F7FF"></span></span>
+            <span class="number"></span>
+        </div>
+        <div class="shuju" id="act_data">
+            <!--挖坑-->
+        </div>
+    </div>
+</div>
+
+<!--<iframe src="http://www.jihes.com/mb100000?type=total" frameborder="0" scrolling="no" id="iframe"></iframe>-->
+
+
+<script type="text/html" id="header_tpl">
+    <div class="left_data">
+        <div class="title">{if condition="$type === 'total'"}近一个月{else /}今日{/if}交易额</div>
+        <div class="number">{{pay_data.pay_amount}}</div>
+    </div>
+    <div class="left_data middle_data">
+        <div class="title">{if condition="$type === 'total'"}近一个月{else /}今日{/if}新增用户人数</div>
+        <div class="number">{{user_data.total}}</div>
+    </div>
+    <div class="left_data right_data">
+        <div class="title">{if condition="$type === 'total'"}近一个月{else /}今日{/if}佣金</div>
+        <div class="number">{{pay_data.comission}}</div>
+    </div>
+</script>
+<script type="text/html" id="act_data_tpl">
+    <div class="zhuanghua">日活量 ：{{today_act}}人</div>
+    <div class="zhuanghua">周活量 ：{{week_act}}人</div>
+    <div class="zhuanghua">平均在线时长：{{ave_time}}</div>
+</script>
+</body>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script src="echarts/dist/echarts.js"></script>
+<script src="template.js"></script>
+<script type="text/javascript">
+    var main01_width= document.documentElement.clientWidth*0.2;
+    var main01_height= document.documentElement.clientHeight*0.25;
+    var main03_width= document.documentElement.clientWidth*0.157;
+    var main03_height= document.documentElement.clientHeight*0.197;
+    $('#main').css({"width":main01_width,"height":main01_height});
+    $('#main2').css({"width":main01_width,"height":main01_height});
+    $('#main3').css({"width":main03_width,"height":main03_height});
+
+    //    $('#iframe').css({"width":document.documentElement.clientWidth,"height":document.documentElement.clientHeight})
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    var myChart2 = echarts.init(document.getElementById('main2'));
+    var myChart3 = echarts.init(document.getElementById('main3'));
+
+    // 指定图表的配置项和数据
+    var option = {
+
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            textStyle: {
+                fontSize: 12,
+                color: '#fff'
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'value',
+            boundaryGap: [0, 2],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                },
+                lineStyle: {
+                    color: '#fff',
+                    width: 1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        yAxis: {
+            type: 'category',
+            data: ['注册用户', '登录用户'],
+            axisLabel: {
+                show: true,
+                splitLine: {
+                    color: '#ffffff'
+                },
+                textStyle: {
+                    color: '#fff'
+                },
+                lineStyle: {
+                    color: '#fff',
+                    width: 1,//这里是为了突出显示加上的
+                }
+            }
+        },
+        series: [
+            {
+                name: '2017年',
+                type: 'bar',
+                barWidth: 10,//柱图宽度
+                itemStyle: {
+                    normal: {
+                        color: function (params) {
+                            //首先定义一个数组
+                            var colorList = [
+                                '#FC385D', '#9AF3FD'
+                            ];
+                            return colorList[params.dataIndex]
+                        },
+                        label: {
+                            show: true
+                        },
+                        barWidth: 20,//柱图宽度
+                        lineStyle: {
+                            color: '#5F8BA4',
+                            width: '1'
+                        }
+                    }
+                },
+                data: [],
+            },
+
+        ]
+    };
+
+
+    var option2 = {
+        legend: {
+            textStyle: {
+                fontSize: 15,
+                color: '#5F8BA4'
+            }
+        },
+        tooltip: {
+            trigger: 'axis',
+
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: [],
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#fff'
+                },
+                lineStyle: {
+                    color: '#fff',
+                    width: 2,//这里是为了突出显示加上的
+                }
+            }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: {onZero: false},
+
+            boundaryGap: false,
+            axisLabel: {
+                show: true,
+                splitLine: {
+                    color: '#fff'
+                },
+                textStyle: {
+                    color: '#fff'
+                },
+                lineStyle: {
+
+                    color: '#fff',
+                    width: 2,//这里是为了突出显示加上的
+                }
+            }
+        },
+        series: [
+            {
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    color: '#97F4FF',
+                    normal: {
+                        width: 1,
+                        color: "#97F4FF"
+
+                    }
+                },
+                data: []
+            },
+            {
+                type: 'line',
+                smooth: true,
+                lineStyle: {
+                    color: '#A82BFF',
+                    normal: {
+                        width: 1,
+                        color: "#A82BFF"
+
+                    }
+                },
+                data: []
+            }
+        ]
+    };
+
+    var option3 = {
+        tooltip: {
+            trigger: 'item',
+
+        },
+        legend: {
+            orient: 'vertical',
+            x: 'left',
+
+        },
+        series: [
+            {
+                color: ["#B800FF", '#7000F0', '#1A7EBD ', '#75F7FF'],
+                type: 'pie',
+                radius: ['50%', '70%'],
+                avoidLabelOverlap: false,
+                label: {
+                    normal: {
+                        show: false,
+                        position: 'center'
+                    },
+                    emphasis: {
+                        show: true,
+                        textStyle: {
+                            fontSize: '15',
+                            fontWeight: 'bold'
+                        }
+                    }
+                },
+                labelLine: {
+                    normal: {
+                        show: false
+                    }
+                },
+                data: [
+                    {value: 2000, name: '一级代理'},
+                    {value: 4000, name: '二级A型'},
+                    {value: 4000, name: '二级B型'},
+                    {value: 10000, name: '普通用户'},
+
+                ]
+            }
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart2.setOption(option2);
+    myChart3.setOption(option3);
+
+
+    //获取url中"?"符后的字串
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    setData();
+    //轮询
+    var timmer = setInterval(function(){
+        setData();
+    },1000*30);
+
+    //    切换今日和本月
+    //    var type="today"
+    //    var timer=setInterval(function () {
+    //        if(type=="today"){
+    //            $('#iframe').css('display','none');
+    //            type="total"
+    //        }else {
+    //            $('#iframe').css('display','block');
+    //            type="today"
+    //        }
+    //    },2000)
+
+    function setData() {
+        var type=getQueryString('type');
+        if(type=="" || type == null){
+            $('#title').html('今日数据')
+            $.ajax({
+                type: 'post',
+                url: 'http://www.jihes.com/index/activity_double/bigdata',
+                dataType: 'json',
+                data: {re: 'post'},
+                success: function (result) {
+                    console.log(JSON.parse(result).data)
+                    var data_header = JSON.parse(result).data;
+                    var data = JSON.parse(result).data.user_data;
+                    var data_puv = JSON.parse(result).data.puv;
+                    var data_act_data = JSON.parse(result).data.act_data;
+                    var data01 = []; //第一个数据
+                    //                目标总日活
+                    var target_height= document.documentElement.clientHeight*0.6;
+                    var target_act=100000;
+                    $('.now_act').html(data_act_data.today_act)
+                    $('.target_act').html(target_act)
+                    var height=data_act_data.today_act*target_height/target_act;
+                    $('.water').css('height',height);
+                    $('.bolang').css('bottom',height-5);
+                    $('#now').css('bottom', document.documentElement.clientHeight*0.3);
+//            头部的数据
+                    $('#header').html(template('header_tpl', data_header))
+                    $('#act_data').html(template('act_data_tpl', data_act_data))
+//            第一个图的数据
+                    if (data) {
+                        data01[1] = data['login']
+                        data01[0] = data['regist']
+                        myChart.setOption({        //加载数据图表
+                            series: [{
+                                // 根据名字对应到相应的系列
+                                data: data01
+                            }]
+                        });
+//            第三个图
+                        var level = [data.one_level, data.two_level_a, data.two_level_b, data.funs];
+                        var numbers = document.querySelector('.main_right').querySelectorAll('.number');
+                        var one_levels = document.querySelectorAll('.one_level');
+                        var line_tops = document.querySelectorAll('.line_top');
+                        for (var i = 0; i < 4; i++) {
+                            one_levels[i].innerHTML=level[i]
+                            numbers[i].innerHTML = parseInt(level[i] / data.total * 100) + '%';
+                            line_tops[i].style.width=parseInt(level[i] / data.total * 100) + '%';
+                        }
+
+                        myChart3.setOption({        //加载数据图表
+                            series: [
+                                {
+                                    data: [
+                                        {value: data['one_level'], name: '一级代理'},
+                                        {value: data['two_level_a'], name: '二级A型'},
+                                        {value: data['two_level_b'], name: '二级B型'},
+                                        {value: data['funs'], name: '普通用户'},
+
+                                    ]
+                                }
+                            ]
+                        });
+                    }
+                    var puv_time = [];
+                    var pv_data = [];
+                    var uv_data = [];
+//            第二个图的数据
+
+                    if (data_puv) {
+                        $.each(data_puv.pv, function (i, val) {
+                            puv_time.push(i);
+                            pv_data.push(val)
+                        });
+                        $.each(data_puv.uv, function (i, val) {
+                            uv_data.push(val)
+                        });
+                        myChart2.setOption({        //加载数据图表
+                            xAxis: {
+                                data: puv_time,
+                            },
+                            series: [
+                                {
+                                    // 根据名字对应到相应的系列
+                                    data: pv_data
+                                },
+                                {
+                                    data: uv_data
+                                }
+                            ]
+                        });
+                    }
+
+                }
+            })
+
+        }else {
+
+            $.ajax({
+                type: 'post',
+                url: 'http://www.jihes.com/index/activity_double/bigdata',
+                dataType: 'json',
+                data: {type: 'total', re: 'post'},
+                success: function (result) {
+                    console.log(JSON.parse(result).data)
+                    var data_header = JSON.parse(result).data;
+                    var data = JSON.parse(result).data.user_data;
+                    var data_puv = JSON.parse(result).data.puv;
+                    var data_act_data = JSON.parse(result).data.act_data;
+                    var data01 = []; //第一个数据
+                    //                目标总日活
+                    var target_height= document.documentElement.clientHeight*0.6;
+                    var target_act=100000;
+                    $('.now_act').html(data_act_data.today_act)
+                    $('.target_act').html(target_act)
+                    var height=data_act_data.today_act*target_height/target_act;
+                    $('.water').css('height',height);
+                    $('.bolang').css('bottom',height-5);
+                    $('#now').css('bottom', document.documentElement.clientHeight*0.3);
+//            头部的数据
+                    $('#header').html(template('header_tpl', data_header))
+                    $('#act_data').html(template('act_data_tpl', data_act_data))
+//            第一个图的数据
+                    if (data) {
+                        data01[1] = data['login']
+                        data01[0] = data['regist']
+                        myChart.setOption({        //加载数据图表
+                            series: [{
+                                // 根据名字对应到相应的系列
+                                data: data01
+                            }]
+                        });
+//            第三个图
+                        var level = [data.one_level, data.two_level_a, data.two_level_b, data.funs];
+                        var numbers = document.querySelector('.main_right').querySelectorAll('.number');
+                        var one_levels = document.querySelectorAll('.one_level');
+                        var line_tops = document.querySelectorAll('.line_top');
+                        for (var i = 0; i < 4; i++) {
+                            one_levels[i].innerHTML=level[i]
+                            numbers[i].innerHTML = parseInt(level[i] / data.total * 100) + '%';
+                            line_tops[i].style.width=parseInt(level[i] / data.total * 100) + '%';
+                        }
+
+                        myChart3.setOption({        //加载数据图表
+                            series: [
+                                {
+                                    data: [
+                                        {value: data['one_level'], name: '一级代理'},
+                                        {value: data['two_level_a'], name: '二级A型'},
+                                        {value: data['two_level_b'], name: '二级B型'},
+                                        {value: data['funs'], name: '普通用户'},
+
+                                    ]
+                                }
+                            ]
+                        });
+                    }
+
+                    var puv_time = [];
+                    var pv_data = [];
+                    var uv_data = [];
+//            第二个图的数据
+
+                    if (data_puv) {
+                        $.each(data_puv.pv, function (i, val) {
+                            puv_time.push(i);
+                            pv_data.push(val)
+                        });
+                        $.each(data_puv.uv, function (i, val) {
+                            uv_data.push(val)
+                        });
+                        myChart2.setOption({        //加载数据图表
+                            xAxis: {
+                                data: puv_time,
+                            },
+                            series: [
+                                {
+                                    // 根据名字对应到相应的系列
+                                    data: pv_data
+                                },
+                                {
+                                    data: uv_data
+                                }
+                            ]
+                        });
+                    }
+
+
+                }
+            })
+        }
+    }
+
+</script>
+</html>
