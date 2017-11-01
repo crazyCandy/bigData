@@ -212,9 +212,10 @@
 
     var option2 = {
         legend: {
+            data: ['PV', 'UV'],
             textStyle: {
                 fontSize: 15,
-                color: '#5F8BA4'
+                color: '#fff'
             }
         },
         tooltip: {
@@ -229,8 +230,10 @@
         },
         xAxis: {
             type: 'category',
+
             boundaryGap: false,
             data: [],
+//            坐标值的颜色
             axisLabel: {
                 show: true,
                 textStyle: {
@@ -240,7 +243,15 @@
                     color: '#fff',
                     width: 2,//这里是为了突出显示加上的
                 }
-            }
+            },
+//            坐标轴的颜色
+            axisLine: {
+                lineStyle: {
+                    type: 'solid',
+                    color: '#fff',//左边线的颜色
+                    width: '1'//坐标线的宽度
+                }
+            },
         },
         yAxis: {
             type: 'value',
@@ -250,7 +261,7 @@
             axisLabel: {
                 show: true,
                 splitLine: {
-                    color: '#fff'
+                    color: '#000'
                 },
                 textStyle: {
                     color: '#fff'
@@ -260,31 +271,56 @@
                     color: '#fff',
                     width: 2,//这里是为了突出显示加上的
                 }
-            }
+            },
+            axisLine: {
+                lineStyle: {
+                    type: 'solid',
+                    color: '#fff',//左边线的颜色
+                    width: '1'//坐标线的宽度
+                }
+            },
         },
         series: [
             {
+                name: 'PV',
                 type: 'line',
                 smooth: true,
-                lineStyle: {
-                    color: '#97F4FF',
+                symbol: 'none',
+                itemStyle: {
                     normal: {
-                        width: 1,
-                        color: "#97F4FF"
-
+                        color: '#97F4FF',
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#97F4FF'
+                            }
+                        },
+                        lineStyle: {
+                            color: '#97F4FF'
+                        }
                     }
                 },
                 data: []
             },
-            {
-                type: 'line',
-                smooth: true,
-                lineStyle: {
-                    color: '#A82BFF',
-                    normal: {
-                        width: 1,
-                        color: "#A82BFF"
 
+
+            {
+                name: 'UV',
+                type: 'line',
+                symbol: 'none',
+                smooth: true,
+                itemStyle: {
+                    normal: {
+                        color: '#A82BFF',
+                        label: {
+                            show: true,
+                            textStyle: {
+                                color: '#A82BFF'
+                            }
+                        },
+                        lineStyle: {
+                            color: '#A82BFF'
+                        }
                     }
                 },
                 data: []
